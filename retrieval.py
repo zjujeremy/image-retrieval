@@ -76,6 +76,7 @@ if __name__ == '__main__':
     # 2.图片检索
     print(query_vector)
     print(query_vector.shape)
+    print(np.linalg.norm(query_vector))
     re = RetrievalEngine(args.index_file, args.db_name)
     result = re.get_method(args.engine)(query_vector, None)
     print(result)
