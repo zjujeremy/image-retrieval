@@ -8,6 +8,7 @@ from service.es_retrieval import ESRetrieval
 from service.milvus_retrieval import MilvusRetrieval
 import os
 import sys
+import numpy as np
 from os.path import dirname
 BASE_DIR = dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
@@ -56,15 +57,18 @@ class RetrievalEngine(object):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--test_data", type=str, default=os.path.join(BASE_DIR, 'data', 'test', '001_accordion_image_0001.jpg'), help="test data path.")
-    parser.add_argument("--index_file", type=str, default=os.path.join(BASE_DIR, 'index', 'train.h5'), help="index file path.")
+    parser.add_argument("--index_file", type=str, default=os.path.join(BASE_DIR, 'index', 'coco.h5'), help="index file path.")
     parser.add_argument("--db_name", type=str, default='image_retrieval', help="database name.")
-    parser.add_argument("--engine", type=str, default='numpy', help="retrieval engine.")
-    args = vars(parser.parse_args())
+    parser.add_argument("--engine", type=str, default='faiss', help="retrieval engine.")
+    args = parser.parse_args()
     # 1.图片推理
-    model = VGGNet()
-    query_vector = model.vgg_extract_feat(args["test_data"])
+    with open(args.test_data, "r") as fin:
+        cont = fin.readlines()
+        image_name = cont[0].strip()
+        caption= cont[1].strip()
+        query_vector = np.array([float(ele) for ele in cont[2].strip().split(",")])
     # 2.图片检索
-    re = RetrievalEngine(args["index_file"], args["db_name"])
-    result = re.get_method(args["engine"])(query_vector, None)
+    re = RetrievalEngine(args.index_file, args.db_name)
+    result = re.get_method(args.engine)(query_vector, None)
     print(result)
 
