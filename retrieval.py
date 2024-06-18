@@ -68,9 +68,11 @@ if __name__ == '__main__':
     parser.add_argument("--engine", type=str, default='faiss', help="retrieval engine.")
     args = parser.parse_args()
     # 1.图片推理
+    sys_cmd = "ossutil64 -c /home/lijiaming.ljm/.ossutilconfig cp {} oss://lijiaming-mujia-oss/coco_retrieval/main.jpg"
     with open(args.test_data, "r") as fin:
         cont = fin.readlines()
         image_name = cont[0].strip()
+        os.system(sys_cmd.format(image_name))
         caption= cont[1].strip()
         query_vector = normalize(np.array([float(ele) for ele in cont[2].strip().split(",")]))
     # 2.图片检索
