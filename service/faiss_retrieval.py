@@ -32,9 +32,6 @@ class FaissRetrieval(object):
         r_list = []
         for i, val in enumerate(index_list[0]):
             name = self.retrieval_name[int(val)]
-            # 将图片传输到oss中
-            sys_cmd = "ossutil64 -c /home/lijiaming.ljm/.ossutilconfig cp {} oss://lijiaming-mujia-oss/coco_retrieval/"
-            os.system(sys_cmd.format(name))
             caption = self.retrieval_caption[int(val)]
             score = float(score_list[0][i]) # * 0.5 + 0.5
             if score > THRESHOLD:
@@ -43,6 +40,9 @@ class FaissRetrieval(object):
                     "caption": str(caption, encoding='utf-8'),
                     "score": round(score, 6)
                 }
+                # 将图片传输到oss中
+                sys_cmd = "ossutil64 -c /home/lijiaming.ljm/.ossutilconfig cp {} oss://lijiaming-mujia-oss/coco_retrieval/"
+                os.system(sys_cmd.format(name))
                 r_list.append(temp)
         
         return r_list
