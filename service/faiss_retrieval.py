@@ -33,7 +33,7 @@ class FaissRetrieval(object):
         for i, val in enumerate(index_list[0]):
             name = self.retrieval_name[int(val)]
             caption = self.retrieval_caption[int(val)]
-            score = float(score_list[0][i]) * 0.5 + 0.5
+            score = float(score_list[0][i]) # * 0.5 + 0.5
             if score > THRESHOLD:
                 temp = {
                     "name": name,
