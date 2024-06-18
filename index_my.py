@@ -24,7 +24,7 @@ if __name__ == "__main__":
     captions = []
     for i, ff_path in enumerate(ff):
         print("extract {}...".format(ff_path))
-        with open("ff_path", "r") as fin:
+        with open(ff_path, "r") as fin:
             cont = fin.readlines()
             if len(cont) != 3:
                 continue
