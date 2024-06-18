@@ -76,7 +76,7 @@ if __name__ == '__main__':
         caption= cont[1].strip()
         query_vector = normalize(np.array([float(ele) for ele in cont[2].strip().split(",")]))
     # 2.图片检索
-    print(query_vector)
+    # print(query_vector)
     print(query_vector.shape)
     print(np.linalg.norm(query_vector))
     re = RetrievalEngine(args.index_file, args.db_name)
