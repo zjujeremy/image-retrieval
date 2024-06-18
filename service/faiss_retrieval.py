@@ -38,7 +38,7 @@ class FaissRetrieval(object):
                 temp = {
                     "name": str(name, encoding='utf-8'),
                     "caption": str(caption, encoding='utf-8'),
-                    "score": str(round(score, 6), encoding='utf-8')
+                    "score": round(score, 6)
                 }
                 r_list.append(temp)
         
