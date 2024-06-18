@@ -54,6 +54,12 @@ class RetrievalEngine(object):
         return []
 
 
+def normalize(v):
+    norm = np.linalg.norm(v)
+    if norm == 0: 
+       return v
+    return v / norm
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--test_data", type=str, default=os.path.join(BASE_DIR, 'data', 'test', '001_accordion_image_0001.jpg'), help="test data path.")
@@ -66,7 +72,7 @@ if __name__ == '__main__':
         cont = fin.readlines()
         image_name = cont[0].strip()
         caption= cont[1].strip()
-        query_vector = np.array([float(ele) for ele in cont[2].strip().split(",")])
+        query_vector = normalize(np.array([float(ele) for ele in cont[2].strip().split(",")]))
     # 2.图片检索
     print(query_vector)
     print(query_vector.shape)
