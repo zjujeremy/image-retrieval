@@ -36,9 +36,9 @@ class FaissRetrieval(object):
             score = float(score_list[0][i]) # * 0.5 + 0.5
             if score > THRESHOLD:
                 temp = {
-                    "name": name,
-                    "caption": caption,
-                    "score": round(score, 6)
+                    "name": str(name, encoding='utf-8'),
+                    "caption": str(caption, encoding='utf-8'),
+                    "score": str(round(score, 6), encoding='utf-8')
                 }
                 r_list.append(temp)
         
