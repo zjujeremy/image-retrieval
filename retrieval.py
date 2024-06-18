@@ -5,7 +5,7 @@ import argparse
 from service.numpy_retrieval import NumpyRetrieval
 from service.faiss_retrieval import FaissRetrieval
 from service.es_retrieval import ESRetrieval
-from service.milvus_retrieval import MilvusRetrieval
+# from service.milvus_retrieval import MilvusRetrieval
 import os
 import sys
 import numpy as np
@@ -44,11 +44,11 @@ class RetrievalEngine(object):
             self.es_r = ESRetrieval(self.db_name, self.index_file)
         return self.es_r.retrieve(query_vector)
 
-    def milvus_handler(self, query_vector, req_id=None):
-        # milvus计算
-        if self.milvus_r is None:
-            self.milvus_r = MilvusRetrieval(self.db_name, self.index_file)
-        return self.milvus_r.retrieve(query_vector)
+    # def milvus_handler(self, query_vector, req_id=None):
+    #     # milvus计算
+    #     if self.milvus_r is None:
+    #         self.milvus_r = MilvusRetrieval(self.db_name, self.index_file)
+    #     return self.milvus_r.retrieve(query_vector)
 
     def default_handler(self, query_vector, req_id=None):
         return []
