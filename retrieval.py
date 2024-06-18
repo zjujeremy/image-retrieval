@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-from service.vggnet import VGGNet
+# from service.vggnet import VGGNet
 from service.numpy_retrieval import NumpyRetrieval
 from service.faiss_retrieval import FaissRetrieval
 from service.es_retrieval import ESRetrieval
