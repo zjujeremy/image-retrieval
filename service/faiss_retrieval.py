@@ -27,7 +27,7 @@ class FaissRetrieval(object):
         self.index.add(self.retrieval_db)
         print("************* Done faiss indexing, Indexed {} documents *************".format(len(self.retrieval_db)))
 
-    def retrieve(self, query_vector, search_size=3):
+    def retrieve(self, query_vector, search_size=10):
         score_list, index_list = self.index.search(np.array([query_vector]).astype(np.float32), search_size)
         r_list = []
         for i, val in enumerate(index_list[0]):

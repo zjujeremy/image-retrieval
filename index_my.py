@@ -10,6 +10,12 @@ from os.path import dirname
 BASE_DIR = dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
 
+def normalize(v):
+    norm = np.linalg.norm(v)
+    if norm == 0: 
+       return v
+    return v / norm
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--train_data", type=str, default=os.path.join(BASE_DIR, '../BLIP/mm_representation'), help="train data path.")
@@ -30,7 +36,7 @@ if __name__ == "__main__":
                 continue
             names.append(cont[0].strip())
             captions.append(cont[1].strip())
-            feats.append([float(ele) for ele in cont[2].strip().split(",")])
+            feats.append(normalize(np.array([float(ele) for ele in cont[2].strip().split(",")])))
     feats = np.array(feats)
     print("--------------------------------------------------")
     print("         writing feature extraction results")
