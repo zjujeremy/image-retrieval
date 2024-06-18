@@ -3,7 +3,7 @@
 import h5py
 import argparse
 import numpy as np
-from service.vggnet import VGGNet
+# from service.vggnet import VGGNet
 import os
 import sys
 from os.path import dirname
