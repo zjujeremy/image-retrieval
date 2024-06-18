@@ -9,7 +9,7 @@ THRESHOLD = float(os.environ.get('THRESHOLD', '0.85'))  # 检索阈值
 
 
 class FaissRetrieval(object):
-    def __init__(self, index_dir, emb_size=512):
+    def __init__(self, index_dir, emb_size=768):
         self.emb_size = emb_size
         self.load(index_dir)
 
@@ -18,6 +18,7 @@ class FaissRetrieval(object):
         h5f = h5py.File(index_dir, 'r')
         self.retrieval_db = h5f['dataset_1'][:]
         self.retrieval_name = h5f['dataset_2'][:]
+        self.retrieval_caption = h5f['dataset_3'][:]
         h5f.close()
         # 2. 加载faiss
         self.retrieval_db = np.asarray(self.retrieval_db).astype(np.float32)
@@ -31,10 +32,12 @@ class FaissRetrieval(object):
         r_list = []
         for i, val in enumerate(index_list[0]):
             name = self.retrieval_name[int(val)]
+            caption = self.retrieval_caption[int(val)]
             score = float(score_list[0][i]) * 0.5 + 0.5
             if score > THRESHOLD:
                 temp = {
                     "name": name,
+                    "caption": caption,
                     "score": round(score, 6)
                 }
                 r_list.append(temp)
