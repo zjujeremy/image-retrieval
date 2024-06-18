@@ -42,7 +42,7 @@ class FaissRetrieval(object):
                 }
                 # 将图片传输到oss中
                 sys_cmd = "ossutil64 -c /home/lijiaming.ljm/.ossutilconfig cp {} oss://lijiaming-mujia-oss/coco_retrieval/"
-                os.system(sys_cmd.format(name))
+                os.system(sys_cmd.format(str(name, encoding='utf-8')))
                 r_list.append(temp)
         
         return r_list
