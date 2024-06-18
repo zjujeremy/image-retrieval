@@ -82,4 +82,5 @@ if __name__ == '__main__':
     re = RetrievalEngine(args.index_file, args.db_name)
     result = re.get_method(args.engine)(query_vector, None)
     print(result)
+    print(caption)
 
